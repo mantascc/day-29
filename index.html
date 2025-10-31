@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid blob v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+
+  <!-- SVG Filters -->
+  <svg>
+    <defs>
+      <filter id="liquid">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.012"
+          numOctaves="3"
+          id="turbulence"/>
+        <feDisplacementMap
+          in="SourceGraphic"
+          scale="25"
+          id="displacement"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Scene -->
+  <div class="scene">
+    <div class="text-overlay">Hello world</div>
+    <div class="glass" id="glass">
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="controls-content">
+      <div class="header-row">
+        <h3 style="margin-bottom: 0;">Liquid blob</h3>
+        <div class="icon-toggle" aria-label="Shuffle controls">
+          <button id="randomize-btn" class="icon-btn" title="Shuffle" aria-label="Shuffle">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    <div class="control-group">
+      <div class="label-row">
+        <label>Blur</label>
+        <span class="value" id="blur-value">2px</span>
+      </div>
+      <input type="range" id="blur" min="0" max="50" value="2" step="1">
+    </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label>Saturation</label>
+          <span class="value" id="saturation-value">180%</span>
+        </div>
+        <input type="range" id="saturation" min="50" max="300" value="180" step="10">
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label>Brightness</label>
+          <span class="value" id="brightness-value">110%</span>
+        </div>
+        <input type="range" id="brightness" min="50" max="200" value="110" step="5">
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label>Contrast</label>
+          <span class="value" id="contrast-value">100%</span>
+        </div>
+        <input type="range" id="contrast" min="50" max="200" value="100" step="5">
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label>Hue</label>
+          <span class="value" id="hue-value">0deg</span>
+        </div>
+        <input type="range" id="hue" min="0" max="360" value="0" step="1">
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label>Background Alpha</label>
+          <span class="value" id="bg-alpha-value">0.1</span>
+        </div>
+        <input type="range" id="bg-alpha" min="0" max="1" value="0.1" step="0.01">
+      </div>
+
+      
+
+      <div class="control-group">
+        <div class="label-row">
+          <label>Liquid Distortion</label>
+        </div>
+        <div class="intensity-group">
+          <button class="intensity-btn" id="intensity-low">Low</button>
+          <button class="intensity-btn" id="intensity-medium">Medium</button>
+          <button class="intensity-btn active" id="intensity-high">High</button>
+        </div>
+      </div>
+
+      <hr style="opacity: 0.2;">
+
+      <div class="header-row">
+        <h3 style="margin-bottom: 0;">Motion</h3>
+        <div class="icon-toggle" aria-label="Animation controls">
+          <button id="anim-play" class="icon-btn active" title="Play" aria-label="Play">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </button>
+          <button id="anim-pause" class="icon-btn" title="Pause" aria-label="Pause">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="control-group" id="speed-group">
+        <div class="label-row">
+          <label>Speed</label>
+          <span class="value" id="anim-speed-value">1.00×</span>
+        </div>
+        <input type="range" id="anim-speed" min="0.25" max="2" value="1" step="0.05">
+      </div>
+
+      <hr style="opacity: 0.2;">
+
+      <div class="header-row">
+        <h3 style="margin-bottom: 0;">Text</h3>
+      </div>
+      <div class="control-group">
+        <div class="label-row">
+          <label>Size</label>
+          <span class="value" id="text-size-value">56px</span>
+        </div>
+        <input type="range" id="text-size" min="48" max="160" value="56" step="1">
+      </div>
+      <div class="control-group">
+        <div class="label-row">
+          <label>Text</label>
+        </div>
+        <input type="text" id="text-input" value="Hello world" placeholder="Enter text">
+      </div>
+
+      <hr style="opacity: 0.2;">
+
+      <div class="header-row">
+        <h3 style="margin-bottom: 0;">Background</h3>
+        <div class="icon-toggle" aria-label="Background controls">
+          <button id="bg-shuffle" class="icon-btn" title="Shuffle" aria-label="Shuffle background">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="search-row">
+          <input type="text" id="bg-search-input" placeholder="Search Unsplash">
+          <button id="bg-search-btn">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+
+</body>
+</html>
