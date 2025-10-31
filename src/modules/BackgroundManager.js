@@ -6,11 +6,12 @@ export class BackgroundManager {
   constructor(images = []) {
     // Default to images in /backgrounds/ folder
     // Users can add more images to this array
+    // Using relative paths (without leading /) for GitHub Pages compatibility
     this.images = images.length > 0 ? images : [
-      '/backgrounds/1.avif',
-      '/backgrounds/2.jpg',
-      '/backgrounds/3.jpg',
-      '/backgrounds/4.jpg'
+      'backgrounds/1.avif',
+      'backgrounds/2.jpg',
+      'backgrounds/3.jpg',
+      'backgrounds/4.jpg'
     ];
 
     this.currentIndex = -1;
